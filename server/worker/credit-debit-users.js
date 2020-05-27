@@ -46,7 +46,7 @@ exports.fetchUsers = async () => {
   return users;
 };
 
-let i = 0;
+let i = 0; // hold count of transactions
 /**
  * Make API request to transactions to perform DEBIT or CREDIT transactions
  *
@@ -65,7 +65,7 @@ exports.creditDebitUser = ({ user, type }) => {
 
   i++;
   console.log(
-    `no.: ${i} | userId: ${user.id} | bal: ${user.walletBalance} | type: ${type} | amt: ${amount}`
+    `no.: ${i} | userId: ${user.id} | type: ${type} | amt: ${amount}`
   );
 
   return axiosInstance.post(`/${user.id}/transactions`, { type, amount });

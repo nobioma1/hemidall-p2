@@ -5,6 +5,7 @@ const { fetchUsers, creditDebitUser } = require('./credit-debit-users');
 
 const transaction = async () => {
   // fetch all users
+  console.log('transaction start...');
   const users = await fetchUsers();
 
   try {
@@ -19,18 +20,20 @@ const transaction = async () => {
       },
       { concurrency: 80 } // pool concurrent requests to 80 requests at a time
     );
+    console.log('transaction complete...');
   } catch (error) {
     console.error(error);
+    console.log('transaction incomplete - Something went wrong...');
   }
 };
 
-const worker = () => {
+const worker = async () => {
   console.log('worker launched....');
+  await transaction();
   cron.schedule('0 0 * * *', async () => {
-    console.log('transaction start...');
     await transaction();
-    console.log('transaction complete...');
   });
+  console.log('cron set...');
 };
 
 worker();
