@@ -46,3 +46,27 @@ exports.fetchUsers = async () => {
   return users;
 };
 
+let i = 0;
+/**
+ * Make API request to transactions to perform DEBIT or CREDIT transactions
+ *
+ * Randomly generate amount to be Debited or Credited to user.
+ *
+ * Log actions and count
+ *
+ * @param {*} payload { user, type }
+ * @returns Promise<Transaction>
+ */
+exports.creditDebitUser = ({ user, type }) => {
+  const amount =
+    type === 'DEBIT'
+      ? generateRandom(user.walletBalance, 1)
+      : generateRandom(5000, 1000);
+
+  i++;
+  console.log(
+    `no.: ${i} | userId: ${user.id} | bal: ${user.walletBalance} | type: ${type} | amt: ${amount}`
+  );
+
+  return axiosInstance.post(`/${user.id}/transactions`, { type, amount });
+};
