@@ -9,4 +9,8 @@ const createUser = function (
   return payload;
 };
 
-module.exports = { createUser };
+const generateUsers = (count) => {
+  return Array.from({ length: count }, createUser);
+};
+
+module.exports = { createUser, generateUsers };
