@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev:start": "nodemon src/index.js"
+    "dev:start": "nodemon src/index.js",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:migrate:down": "npx sequelize-cli db:migrate:undo",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "worker:start": "node worker/index.js"
   },
   "keywords": [],
   "author": "",
