@@ -1,3 +1,4 @@
+const cron = require('node-cron');
 const Promise = require('bluebird');
 
 const { fetchUsers, creditDebitUser } = require('./credit-debit-users');
@@ -23,3 +24,13 @@ const transaction = async () => {
   }
 };
 
+const worker = () => {
+  console.log('worker launched....');
+  cron.schedule('0 0 * * *', async () => {
+    console.log('transaction start...');
+    await transaction();
+    console.log('transaction complete...');
+  });
+};
+
+worker();
